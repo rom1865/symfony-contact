@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello world!{% endblock %}
+{% block title %}Hello many times!{% endblock %}
 
 {% set color = ["red", "green"] %}
 
 {% block body %}
-    <h1 style="color: blue">hello {{ name }} !</h1>
-    {% for i in 1..10 %}
+    <h1 style="color: blue">hello many times {{ name }} !</h1>
+    {% for i in 1..times %}
         <p style="color : {{ cycle(color,i) }}"> coucou {{ name | capitalize}} ({{ i|format_number({fraction_digit: 2}) }} ) !</p>
     {% endfor %}
 {% endblock %}
