@@ -2,7 +2,11 @@
 
 {% block title %}Hello world!{% endblock %}
 
+{% set color = ["red", "green"] %}
+
 {% block body %}
-    <h1>hello {{ name }} !</h1>
-    <p>coucou hello {{ name }} !</p>
+    <h1 style="color: blue">hello {{ name }} !</h1>
+    {% for i in 1..10 %}
+        <p style="color : {{ cycle(color,i) }}"> coucou {{ name | capitalize}} ({{ i|format_number({fraction_digit: 2}) }} }}) !</p>
+    {% endfor %}
 {% endblock %}
