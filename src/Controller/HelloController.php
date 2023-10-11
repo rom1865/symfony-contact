@@ -20,7 +20,7 @@ class HelloController extends AbstractController
     public function manyTimes(string $name, int $times = 3): Response
     {
         if ($times > 10 or $times <= 0) {
-            $times = 3;
+            return $this->redirectToRoute('app_hello_manytimes', ['name' => $name, 'times' => '3']);
         }
 
         return $this->render('hello/many_times.html.twig', ['name' => $name, 'times' => $times]);
