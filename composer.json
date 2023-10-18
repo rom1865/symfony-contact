@@ -90,14 +90,20 @@
             "php-cs-fixer fix --dry-run"
         ],
         "test" : [
-            "@test:cs"
+            "@test:cs",
+            "@test:codeception"
+        ],
+        "test:codeception" : [
+            "codecept clean",
+            "php vendor/bin/codecept run"
         ]
     },
     "scripts-descriptions": {
         "start" : "Run Symfony serve",
         "fix:cs": "Fix PHP code with PHP CS Fixer",
         "test:cs" : "Test PHP code with PHP CS Fixer",
-        "test" : "Run all tests"
+        "test" : "Run all tests and run test codeception",
+        "test:codeception" : "Clean the _output directory and start a test codeception "
     },
     "conflict": {
         "symfony/symfony": "*"
