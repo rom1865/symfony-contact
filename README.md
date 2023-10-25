@@ -4,6 +4,15 @@
 - apres un clone ou un pull du projet faire :
 >composer install
 
+- Copier le **.env** en **.env.local** et retirer les ligne suivante du commentaire et definissez elle avec vos infos : 
+
+>DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"  
+  
+## Test Codeception : 
+
+  
+- Copier le .env.test en .env.test.local et copier la ligne de base de données dedans.
+
 ## Description des scripts composer 
 
 - **start** :  
