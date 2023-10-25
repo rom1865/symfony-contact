@@ -97,6 +97,12 @@
         "test:codeception" : [
             "codecept clean",
             "php vendor/bin/codecept run"
+        ],
+        "db" : [
+            "bin/console doctrine:database:drop --force --if-exists",
+            "bin/console doctrine:database:create",
+            "bin/console doctrine:migrations:migrate --no-interaction",
+            "bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
@@ -104,7 +110,8 @@
         "fix:cs": "Fix PHP code with PHP CS Fixer",
         "test:cs" : "Test PHP code with PHP CS Fixer",
         "test" : "Run all tests and run test codeception",
-        "test:codeception" : "Clean the _output directory and start a test codeception "
+        "test:codeception" : "Clean the _output directory and start a test codeception ",
+        "db" : "générer de façon fiable une nouvelle base de données contenant les données factices."
     },
     "conflict": {
         "symfony/symfony": "*"

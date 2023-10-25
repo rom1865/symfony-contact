@@ -49,11 +49,9 @@ final class ContactFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $firstname = self::faker()->firstName();
-        $lastname = self::faker()->lastName();
-        $temp = "$firstname.$lastname";
-        $predomain = $this->normalizeName($temp);
-
+        $firstname = $this->normalizeName(self::faker()->firstName());
+        $lastname = $this->normalizeName(self::faker()->lastName());
+        $predomain = "$firstname.$lastname";
         $domaine = $predomain.'@'.self::faker()->domainName();
 
         return [
@@ -80,11 +78,11 @@ final class ContactFactory extends ModelFactory
 
     protected function normalizeName(string $firstnameLastname)
     {
-        $temp = $this->transliterator->transliterate("$firstnameLastname");
+        $temp = $this->transliterator->transliterate($firstnameLastname);
 
         $normalizename = mb_strtolower($temp);
 
-        $normalizename = preg_replace('/^[a-z]/', '-', $normalizename);
+        $normalizename = preg_replace('/[^a-z]/', '-', $normalizename);
 
         return $normalizename;
     }

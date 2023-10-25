@@ -35,4 +35,8 @@ fix le code php de la page avec la commande suivante :
 -   **test:codeception** : 
 "Clean the _output directory and start a test codeception "  
   
->composer test:codeception
+>composer test:codeception  
+  
+- **db** : 
+  
+"générer de façon fiable une nouvelle base de données contenant les données factices."
