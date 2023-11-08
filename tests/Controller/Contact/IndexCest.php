@@ -35,7 +35,7 @@ class IndexCest
             ]
         );
         $I->amOnPage('/contact');
-        $LiLinks = $I->grabMultiple('li.contacts');
+        $LiLinks = $I->grabMultiple('li.contacts'); // ajouter . au selecteur pour selectionner le nom de la class
         $I->assertEquals('4', count($LiLinks));
         $I->assertEquals($LiLinks, ['abram, lincolm', 'boto, romain', 'colin, nathan', 'dandan, quentin']);
     }
