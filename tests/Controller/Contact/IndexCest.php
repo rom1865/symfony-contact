@@ -35,7 +35,7 @@ class IndexCest
             ]
         );
         $I->amOnPage('/contact');
-        $LiLinks = $I->grabMultiple('li');
+        $LiLinks = $I->grabMultiple('li.contacts');
         $I->assertEquals('4', count($LiLinks));
         $I->assertEquals($LiLinks, ['abram, lincolm', 'boto, romain', 'colin, nathan', 'dandan, quentin']);
     }
