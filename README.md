@@ -33,7 +33,7 @@ fix le code php de la page avec la commande suivante :
   
 
 -   **test:codeception** : 
-"Clean the _output directory and start a test codeception "  
+"nettoie le repertoir output, detruit la base de données, crée une nouvelle , crée le schema de la bd et execute des tests codeception"  
   
 >composer test:codeception  
   

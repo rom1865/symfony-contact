@@ -2,25 +2,41 @@
 
 namespace App\Tests\Controller\Contact;
 
+use App\Factory\ContactFactory;
 use App\Tests\Support\ControllerTester;
 
 class IndexCest
 {
-    public function numberOfElementInPageIs195(ControllerTester $I): void
+    public function creationDe5Contacts(ControllerTester $I): void
     {
-        $I->amOnPage('/contact');
-        $I->seeResponseCodeIsSuccessful();
-        $I->seeInTitle('Liste des contacts');
-        $I->see('Liste des contacts', 'h1');
-        $I->seeNumberOfElements('li', 195);
-        $I->seeNumberOfElements('a', 195);
+        ContactFactory::createMany(5);
     }
 
-    public function premierLienDeLaListeRouteCorrect(ControllerTester $I): void
+    public function testSurLaListeDesContacts(ControllerTester $I): void
     {
+        $contact = ContactFactory::createOne(['email' => 'Aaaaaaaaaaaaaaa.Joe@gmail.com',
+                                   'firstname' => 'Joe',
+                                   'lastname' => 'Aaaaaaaaaaaaaaa']);
+        ContactFactory::createMany(5);
         $I->amOnPage('/contact');
+        $I->click('Aaaaaaaaaaaaaaa, Joe');
         $I->seeResponseCodeIsSuccessful();
-        $I->click('Andre, Sébastien');
-        $I->seeCurrentRouteIs('app_contact_show');
+        $I->seeCurrentRouteIs('app_contact_show', ['id' => $contact->getId()]);
+    }
+
+    public function controleDuTriDesContacts(ControllerTester $I): void
+    {
+        $contacts = ContactFactory::createSequence(
+            [
+                ['lastname' => 'abram', 'firstname' => 'lincolm'],
+                ['lastname' => 'boto', 'firstname' => 'romain'],
+                ['lastname' => 'colin', 'firstname' => 'nathan'],
+                ['lastname' => 'dandan', 'firstname' => 'quentin'],
+            ]
+        );
+        $I->amOnPage('/contact');
+        $LiLinks = $I->grabMultiple('li');
+        $I->assertEquals('4', count($LiLinks));
+        $I->assertEquals($LiLinks, ['abram, lincolm', 'boto, romain', 'colin, nathan', 'dandan, quentin']);
     }
 }

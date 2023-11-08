@@ -2,25 +2,29 @@
 
 namespace App\Tests\Controller\Contact;
 
+use App\Factory\ContactFactory;
 use App\Tests\Support\ControllerTester;
 
 class ShowCest
 {
     public function verificationDesInfosDunContact(ControllerTester $I): void
     {
-        $I->amOnPage('/contact/12');
+        $contact = ContactFactory::createOne(['email' => 'Aaaaaaaaaaaaaaa.Joe@gmail.com',
+            'firstname' => 'Joe',
+            'lastname' => 'Aaaaaaaaaaaaaaa']);
+        $I->amOnPage("/contact/{$contact->getId()}");
         $I->seeResponseCodeIsSuccessful();
-        $I->see('Données de Delmas, Honoré', 'h1');
+        $I->see('Données de Aaaaaaaaaaaaaaa, Joe', 'h1');
         $I->seeNumberOfElements('dl', 1);
         $I->seeNumberOfElements('dt', 3);
         $I->seeNumberOfElements('dd', 3);
         $I->see('
 Nom :
-    Delmas
+    Aaaaaaaaaaaaaaa
 Prenom :
-    Honoré
+    Joe
 E-Mail :
-    honore.delmas@meyer.fr ', 'dl');
+    Aaaaaaaaaaaaaaa.Joe@gmail.com ', 'dl');
         $I->amOnPage('/contact/-1');
         $I->canSeePageNotFound();
     }

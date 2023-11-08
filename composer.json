@@ -95,6 +95,10 @@
             "@test:codeception"
         ],
         "test:codeception" : [
+            "php vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
             "codecept clean",
             "php vendor/bin/codecept run"
         ],
@@ -110,7 +114,7 @@
         "fix:cs": "Fix PHP code with PHP CS Fixer",
         "test:cs" : "Test PHP code with PHP CS Fixer",
         "test" : "Run all tests and run test codeception",
-        "test:codeception" : "Clean the _output directory and start a test codeception ",
+        "test:codeception" : "nettoie le repertoir output, detruit la base de données, crée une nouvelle , crée le schema de la bd et execute des tests codeception",
         "db" : "générer de façon fiable une nouvelle base de données contenant les données factices."
     },
     "conflict": {
@@ -125,6 +129,7 @@
     "require-dev": {
         "codeception/codeception": "^5.0",
         "codeception/module-asserts": "^3.0",
+        "codeception/module-doctrine2": "^3.0",
         "codeception/module-symfony": "^3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.34",
