@@ -26,7 +26,7 @@ class IndexCest
 
     public function controleDuTriDesContacts(ControllerTester $I): void
     {
-        $contacts = ContactFactory::createSequence(
+        ContactFactory::createSequence(
             [
                 ['lastname' => 'abram', 'firstname' => 'lincolm'],
                 ['lastname' => 'boto', 'firstname' => 'romain'],
