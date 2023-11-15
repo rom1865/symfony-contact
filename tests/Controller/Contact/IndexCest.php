@@ -35,8 +35,46 @@ class IndexCest
             ]
         );
         $I->amOnPage('/contact');
-        $LiLinks = $I->grabMultiple('li.contacts'); // ajouter . au selecteur pour selectionner le nom de la class
+        $LiLinks = $I->grabMultiple('li.contacts'); // Ajouter . au selecteur pour selectionner le nom de la class
         $I->assertEquals('4', count($LiLinks));
         $I->assertEquals($LiLinks, ['abram, lincolm', 'boto, romain', 'colin, nathan', 'dandan, quentin']);
+    }
+
+    public function controleDeLaMethodeSearchLastname(ControllerTester $I): void
+    {
+        ContactFactory::createSequence(
+            [
+                ['lastname' => 'testSearchLastnameFirst', 'firstname' => 'lincolm'],
+                ['lastname' => 'testSearchLastnameSecond', 'firstname' => 'romain'],
+                ['lastname' => 'testSearchLastnameThird', 'firstname' => 'nathan'],
+                ['lastname' => 'testSearchLastnameFour', 'firstname' => 'quentin'],
+            ]
+        );
+        $I->amOnPage('/contact?search=testSearchLastname');
+        $LiLinks = $I->grabMultiple('li.contacts');
+        $I->assertEquals('4', count($LiLinks));
+        $I->assertEquals($LiLinks, ['testSearchLastnameFirst, lincolm',
+                                    'testSearchLastnameFour, quentin',
+                                    'testSearchLastnameSecond, romain',
+                                    'testSearchLastnameThird, nathan']);
+    }
+
+    public function controleDeLaMethodeSearchFirstname(ControllerTester $I): void
+    {
+        ContactFactory::createSequence(
+            [
+                ['lastname' => 'lahousse', 'firstname' => 'testSearchFirstnameFirst'],
+                ['lastname' => 'crevet', 'firstname' => 'testSearchFirstnameSecond'],
+                ['lastname' => 'chevrier', 'firstname' => 'testSearchFirstnameThird'],
+                ['lastname' => 'licoml', 'firstname' => 'testSearchFirstnameFour'],
+            ]
+        );
+        $I->amOnPage('/contact?search=testSearch');
+        $LiLinks = $I->grabMultiple('li.contacts');
+        $I->assertEquals('4', count($LiLinks));
+        $I->assertEquals($LiLinks, ['chevrier, testSearchFirstnameThird',
+                                    'crevet, testSearchFirstnameSecond',
+                                    'lahousse, testSearchFirstnameFirst',
+                                    'licoml, testSearchFirstnameFour']);
     }
 }
