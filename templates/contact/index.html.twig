@@ -4,12 +4,9 @@
 
 {% block body %}
     <h1>Liste des contacts</h1>
-    {% if contacts is empty %}
-        <h2>Aucune valeur pour la recherche suivante : <span style="color : red"> {{ search }}</span> </h2>
-    {% else %}
-        <h2>Résultat de la recherche <span style="color : green"> {{ search|default('Tout les contacts') }}</span> :</h2>
+    {% if search is not empty and contacts is empty%}
+        <h2 style="color : red">Aucun contact trouvé pour la recherche</h2>
     {% endif %}
-
     <ul>
     {% for contact in contacts %}
         <li class="contacts"><a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="lastname">{{ contact.lastname }}</span>, <span class="firstname">{{ contact.firstname }}</span></a></li>
