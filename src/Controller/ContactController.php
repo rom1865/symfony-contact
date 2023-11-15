@@ -16,7 +16,8 @@ class ContactController extends AbstractController
     {
         $contacts = $contactRepository->search($request->get('search', ''));
 
-        return $this->render('contact/index.html.twig', ['contacts' => $contacts]);
+        return $this->render('contact/index.html.twig', ['contacts' => $contacts,
+                                                              'search' => $request->get('search', '')]);
     }
 
     #[Route('/contact/{id}')] // Cherche en faisant un findby ID, si le parametre est une entité il comprends
