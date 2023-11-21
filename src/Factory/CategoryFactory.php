@@ -46,7 +46,7 @@ final class CategoryFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $fileJson = __DIR__.'/Category.json';
+        $fileJson = __DIR__.'data/Category.json';
         $nameCategory = file_get_contents(json_decode($fileJson));
 
         return [
