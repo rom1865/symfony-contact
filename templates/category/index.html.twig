@@ -6,7 +6,7 @@
 
     <ul>
         {% for categorie in categories %}
-            <li class="categorie">{{ categorie.name }}</li>
+            <li class="categorie"><a href="{{ path('app_category_show', {id : categorie.id}) }}">{{ categorie.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
