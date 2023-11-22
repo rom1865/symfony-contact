@@ -46,11 +46,8 @@ final class CategoryFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $fileJson = __DIR__.'data/Category.json';
-        $nameCategory = file_get_contents(json_decode($fileJson));
-
         return [
-            'name' => $nameCategory,
+            'name' => mb_convert_case(self::faker()->word(), MB_CASE_TITLE, 'UTF-8'),
         ];
     }
 
