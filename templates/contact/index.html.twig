@@ -7,9 +7,7 @@
     {% if search is not empty and contacts is empty%}
         <h2 style="color : red">Aucun contact trouvé pour la recherche</h2>
     {% endif %}
-    <ul>
-    {% for contact in contacts %}
-        <li class="contacts"><a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="lastname">{{ contact.lastname }}</span>, <span class="firstname">{{ contact.firstname }}</span></a></li>
-    {% endfor %}
-    </ul>
+
+    {% include 'contact/_contacts.html.twig' with {contacts : contacts} %}
+
 {% endblock %}

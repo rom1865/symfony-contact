@@ -16,8 +16,8 @@ class ShowCest
         $I->seeResponseCodeIsSuccessful();
         $I->see('Données de Aaaaaaaaaaaaaaa, Joe', 'h1');
         $I->seeNumberOfElements('dl', 1);
-        $I->seeNumberOfElements('dt', 3);
-        $I->seeNumberOfElements('dd', 3);
+        $I->seeNumberOfElements('dt', 5);
+        $I->seeNumberOfElements('dd', 5);
         $I->see('
 Nom :
     Aaaaaaaaaaaaaaa
