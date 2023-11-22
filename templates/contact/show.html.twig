@@ -7,11 +7,15 @@
 
     <dl>
         <dt>Nom :</dt>
-        <dd>{{ contact.lastname }}</dd>
+            <dd>{{ contact.lastname }}</dd>
         <dt>Prenom :</dt>
-        <dd>{{ contact.firstname }}</dd>
+            <dd>{{ contact.firstname }}</dd>
         <dt>E-Mail :</dt>
-        <dd>{{ contact.email }}</dd>
+            <dd>{{ contact.email }}</dd>
+        <dt>Téléphone : </dt>
+            <dd>{{ contact.phone }}</dd>
+        <dt>Catégorie : </dt>
+            <dd>{{ contact.category.name ?? 'non renseigné' }}</dd>
     </dl>
 {% endblock %}
 
