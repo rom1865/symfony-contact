@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Contact;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +14,14 @@ class CategoryController extends AbstractController
     #[Route('/category', name: 'app_category')]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $categories = $categoryRepository->findBy(
-            [],
-            ['name' => 'ASC']
-        );
+        $qb = $categoryRepository->createQueryBuilder('c')
+            ->leftJoin('c.contacts', 'co') // On joint avec la propriete et non pas avec l'entité
+            ->orderBy('c.name');
+
+        $query = $qb->getQuery();
 
         return $this->render('category/index.html.twig', [
-            'categories' => $categories,
+            'categories' => $query->execute(),
         ]);
     }
 
