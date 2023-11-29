@@ -5,7 +5,6 @@
 {% block body %}
     <h1>Contacts de la categorie : {{ category.name }}</h1>
 
-    {% include 'contact/_contacts.html.twig' with {contacts: contacts} %}
+    {% include 'contact/_contacts.html.twig' with {contacts: contacts, show_category: false} %}
 
 {% endblock %}
-

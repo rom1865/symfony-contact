@@ -3,6 +3,7 @@
 namespace App\Tests\Controller\Contact;
 
 use App\Factory\ContactFactory;
+use App\Repository\CategoryRepository;
 use App\Tests\Support\ControllerTester;
 
 class IndexCest
@@ -24,57 +25,78 @@ class IndexCest
         $I->seeCurrentRouteIs('app_contact_show', ['id' => $contact->getId()]);
     }
 
-    public function controleDuTriDesContacts(ControllerTester $I): void
+    public function controleDuTriDesContacts(ControllerTester $I, CategoryRepository $categoryRepository): void
     {
+        $serviceCategory = $categoryRepository->find(4);
+
         ContactFactory::createSequence(
             [
-                ['lastname' => 'abram', 'firstname' => 'lincolm'],
-                ['lastname' => 'boto', 'firstname' => 'romain'],
-                ['lastname' => 'colin', 'firstname' => 'nathan'],
-                ['lastname' => 'dandan', 'firstname' => 'quentin'],
+                ['lastname' => 'abram', 'firstname' => 'lincolm', 'category' => $serviceCategory],
+                ['lastname' => 'boto', 'firstname' => 'romain', 'category' => $serviceCategory],
+                ['lastname' => 'colin', 'firstname' => 'nathan', 'category' => $serviceCategory],
+                ['lastname' => 'dandan', 'firstname' => 'quentin', 'category' => $serviceCategory],
             ]
         );
         $I->amOnPage('/contact');
-        $LiLinks = $I->grabMultiple('li.contacts'); // Ajouter . au selecteur pour selectionner le nom de la class
+        $LiLinks = $I->grabMultiple('li.contacts');
         $I->assertEquals('4', count($LiLinks));
-        $I->assertEquals($LiLinks, ['abram, lincolm', 'boto, romain', 'colin, nathan', 'dandan, quentin']);
+        // Ajoutez votre assertion pour vérifier la présence des noms avec la catégorie
+        $expectedResults = [
+            'abram, lincolm (service)',
+            'boto, romain (service)',
+            'colin, nathan (service)',
+            'dandan, quentin (service)',
+        ];
+        $I->assertEquals($LiLinks, $expectedResults);
     }
 
-    public function controleDeLaMethodeSearchLastname(ControllerTester $I): void
+    public function controleDeLaMethodeSearchLastname(ControllerTester $I, CategoryRepository $categoryRepository): void
     {
+        $serviceCategory = $categoryRepository->find(4);
+
         ContactFactory::createSequence(
             [
-                ['lastname' => 'testSearchLastnameFirst', 'firstname' => 'lincolm'],
-                ['lastname' => 'testSearchLastnameSecond', 'firstname' => 'romain'],
-                ['lastname' => 'testSearchLastnameThird', 'firstname' => 'nathan'],
-                ['lastname' => 'testSearchLastnameFour', 'firstname' => 'quentin'],
+                ['lastname' => 'testSearchLastnameFirst', 'firstname' => 'lincolm', 'category' => $serviceCategory],
+                ['lastname' => 'testSearchLastnameSecond', 'firstname' => 'romain', 'category' => $serviceCategory],
+                ['lastname' => 'testSearchLastnameThird', 'firstname' => 'nathan', 'category' => $serviceCategory],
+                ['lastname' => 'testSearchLastnameFour', 'firstname' => 'quentin', 'category' => $serviceCategory],
             ]
         );
         $I->amOnPage('/contact?search=testSearchLastname');
         $LiLinks = $I->grabMultiple('li.contacts');
         $I->assertEquals('4', count($LiLinks));
-        $I->assertEquals($LiLinks, ['testSearchLastnameFirst, lincolm',
-                                    'testSearchLastnameFour, quentin',
-                                    'testSearchLastnameSecond, romain',
-                                    'testSearchLastnameThird, nathan']);
+        // Ajoutez votre assertion pour vérifier la présence des noms avec la catégorie
+        $expectedResults = [
+            'testSearchLastnameFirst, lincolm (service)',
+            'testSearchLastnameFour, quentin (service)',
+            'testSearchLastnameSecond, romain (service)',
+            'testSearchLastnameThird, nathan (service)',
+        ];
+        $I->assertEquals($LiLinks, $expectedResults);
     }
 
-    public function controleDeLaMethodeSearchFirstname(ControllerTester $I): void
+    public function controleDeLaMethodeSearchFirstname(ControllerTester $I, CategoryRepository $categoryRepository): void
     {
+        $serviceCategory = $categoryRepository->find(4);
+
         ContactFactory::createSequence(
             [
-                ['lastname' => 'lahousse', 'firstname' => 'testSearchFirstnameFirst'],
-                ['lastname' => 'crevet', 'firstname' => 'testSearchFirstnameSecond'],
-                ['lastname' => 'chevrier', 'firstname' => 'testSearchFirstnameThird'],
-                ['lastname' => 'licoml', 'firstname' => 'testSearchFirstnameFour'],
+                ['lastname' => 'lahousse', 'firstname' => 'testSearchFirstnameFirst', 'category' => $serviceCategory],
+                ['lastname' => 'crevet', 'firstname' => 'testSearchFirstnameSecond', 'category' => $serviceCategory],
+                ['lastname' => 'chevrier', 'firstname' => 'testSearchFirstnameThird', 'category' => $serviceCategory],
+                ['lastname' => 'licoml', 'firstname' => 'testSearchFirstnameFour', 'category' => $serviceCategory],
             ]
         );
         $I->amOnPage('/contact?search=testSearch');
         $LiLinks = $I->grabMultiple('li.contacts');
         $I->assertEquals('4', count($LiLinks));
-        $I->assertEquals($LiLinks, ['chevrier, testSearchFirstnameThird',
-                                    'crevet, testSearchFirstnameSecond',
-                                    'lahousse, testSearchFirstnameFirst',
-                                    'licoml, testSearchFirstnameFour']);
+        // Ajoutez votre assertion pour vérifier la présence des noms avec la catégorie
+        $expectedResults = [
+            'chevrier, testSearchFirstnameThird (service)',
+            'crevet, testSearchFirstnameSecond (service)',
+            'lahousse, testSearchFirstnameFirst (service)',
+            'licoml, testSearchFirstnameFour (service)',
+        ];
+        $I->assertEquals($LiLinks, $expectedResults);
     }
 }
