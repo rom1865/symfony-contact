@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Repository\ContactRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,9 @@ class ContactController extends AbstractController
     }
 
     #[Route('/contact/{id}')] // Cherche en faisant un findby ID, si le parametre est une entité il comprends
-    public function show(Contact $contact): Response
+    public function show(
+        #[MapEntity(expr: 'repository.findWithCategory(id)')]
+        Contact $contact): Response
     {
         return $this->render('contact/show.html.twig', ['contact' => $contact]);
     }

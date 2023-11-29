@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Contact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,6 +41,20 @@ class ContactRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
 
         return $query->execute();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findWithCategory(int $id): ?Contact
+    {
+        $qb = $this->createQueryBuilder('co')
+                    ->addSelect('c as category')
+                    ->leftJoin('co.category', 'c')
+                    ->where('co.id = :id')
+                    ->setParameter(':id', "$id");
+
+        return $qb->getQuery()->getOneOrNullResult(); // A utiliser quand on recupère qu'un seul resultat
     }
 
     //    /**
