@@ -3,10 +3,12 @@
 {% block title %}Liste de toute les categories !{% endblock %}
 
 {% block body %}
-
+    {% dump %}
     <ul>
-        {% for categorie in categories %}
-            <li class="categorie"><a href="{{ path('app_category_show', {id : categorie.id}) }}">{{ categorie.name }}</a></li>
+        {% for categorieCount in categories %}
+            <li class="categorie"><a href="{{ path('app_category_show', {id : categorieCount.category.id}) }}">{{ categorieCount.category.name }}</a>
+                <span class="badge bg-secondary">Nombre de contact : {{ categorieCount.count }}</span>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
