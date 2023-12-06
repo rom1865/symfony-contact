@@ -21,11 +21,34 @@ class ContactController extends AbstractController
                                                     'search' => $request->get('search', '')]);
     }
 
-    #[Route('/contact/{id}')] // Cherche en faisant un findby ID, si le parametre est une entité il comprends
+    #[Route('/contact/{id}', requirements: ['id' => '\d+'])] // Cherche en faisant un findby ID, si le parametre est une entité il comprends
     public function show(
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
         Contact $contact): Response
     {
         return $this->render('contact/show.html.twig', ['contact' => $contact]);
     }
+
+    #[Route('/contact/create')]
+    public function create(): Response
+    {
+        return $this->render('contact/contact_create.html.twig');
+    }
+
+    #[Route('/contact/{id}/update', requirements: ['id' => '\d+'])]
+    public function update(
+        #[MapEntity(expr: 'repository.findWithCategory(id)')]
+        Contact $contact): Response
+    {
+        return $this->render('contact/contact_update.html.twig', ['contact' => $contact]);
+    }
+
+    #[Route('/contact/{id}/delete', requirements: ['id' => '\d+'])]
+    public function delete(
+        #[MapEntity(expr: 'repository.findWithCategory(id)')]
+        Contact $contact): Response
+    {
+        return $this->render('contact/contact_delete.html.twig', ['contact' => $contact]);
+    }
+
 }
