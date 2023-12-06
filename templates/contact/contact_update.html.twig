@@ -5,6 +5,12 @@
 {% block body %}
     <h1>Édition de {{ "#{contact.lastname}, #{contact.firstname}" }}</h1>
 
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <div class="w-100 p-3" style="background-color: #eee;"><input type="submit" class="btn" value="Modifier" /></div>
+    {{ form_end(form) }}
+
 {% endblock %}
 
 
