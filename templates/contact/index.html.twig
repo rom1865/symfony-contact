@@ -8,6 +8,6 @@
         <h2 style="color : red">Aucun contact trouvé pour la recherche</h2>
     {% endif %}
 
-    {% include 'contact/_contacts.html.twig' with {contacts : contacts} %}
+    {{ include('contact/_contacts.html.twig', {contacts : contacts}) }}
 
 {% endblock %}

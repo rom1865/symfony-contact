@@ -8,8 +8,10 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
@@ -31,7 +33,7 @@ class ContactType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                //'placeholder' => 'Catégorie ?',
+                // 'placeholder' => 'Catégorie ?',
                 'choice_label' => 'name',
                 'required' => false,
                 'query_builder' => function (EntityRepository $entityRepository) {
@@ -39,6 +41,7 @@ class ContactType extends AbstractType
                         ->orderBy('c.name', 'ASC');
                 },
             ])
+            ->add('submit', SubmitType::class)
         ;
     }
 

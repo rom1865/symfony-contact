@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.firstname, {'label': 'Prénom'}) }}
+    {{ form_row(form.lastname, {'label': 'Nom'}) }}
+    {{ form_row(form.phone, {'label': 'Téléphone'}) }}
+    {{ form_row(form.email, {'label': 'Email'}) }}
+    {{ form_row(form.category, {'label': 'Catégorie', 'placeholder': 'Categorie ?'}) }}
+
+    {{ form_row(form.submit, { 'label': submit_label ,'attr': {'class': 'btn btn-primary w-100 p-3'}}) }}
+<!--  <button type="submit" class="btn btn-primary w-100 p-3">Ajouter</button>
+{{ form_end(form) }}

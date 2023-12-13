@@ -5,11 +5,7 @@
 {% block body %}
     <h1>Édition de {{ "#{contact.lastname}, #{contact.firstname}" }}</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-
-        <button type="submit" class="btn btn-primary w-100 p-3">Modifier</button>
-    {{ form_end(form) }}
+    {{ include('contact/_form.html.twig', {submit_label : 'Modifier', form: form}, with_context = false ) }}
 
 {% endblock %}
 
