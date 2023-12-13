@@ -5,5 +5,10 @@
 {% block body %}
     <h1>Création d'un nouveau contact</h1>
 
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary w-100 p-3">Ajouter</button>
+    {{ form_end(form) }}
 {% endblock %}
 
