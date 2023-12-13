@@ -53,7 +53,7 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/contact_update.html.twig', ['contact' => $contact,
-                                                                        'form' => $form]);
+                                                                         'form' => $form]);
     }
 
     #[Route('/contact/{id}/delete', requirements: ['id' => '\d+'])]
