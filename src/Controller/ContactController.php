@@ -8,6 +8,7 @@ use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +58,7 @@ class ContactController extends AbstractController
     {
         $form = $this->createForm(ContactType::class, $contact);
 
-        $form->handleRequest($request);
+        $form->handleRequest($request); // recupere la requete du formullaire
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush(); // permet de valider les actions
@@ -72,8 +73,28 @@ class ContactController extends AbstractController
     #[Route('/contact/{id}/delete', requirements: ['id' => '\d+'])]
     public function delete(
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
-        Contact $contact): Response
+        Contact $contact, Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('contact/contact_delete.html.twig', ['contact' => $contact]);
+        $form = $this->createFormBuilder($contact)
+            ->add('delete', SubmitType::class)
+            ->add('cancel', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getClickedButton() && 'delete' === $form->getClickedButton()->getName()) {
+                $entityManager->remove($contact); // EntityManager gere toutes les instances d'une entité
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_contact');
+            }
+            if ($form->getClickedButton() && 'delete' !== $form->getClickedButton()->getName()) {
+                return $this->redirectToRoute('app_contact_show', ['id' => $contact->getId()]);
+            }
+        }
+
+        return $this->render('contact/contact_delete.html.twig', ['contact' => $contact,
+                                                                        'form' => $form]);
     }
 }
