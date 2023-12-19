@@ -2,3 +2,12 @@ span.lastname {
     font-weight: bold;
     font-variant: small-caps;
 }
+
+.contacts a {
+    text-decoration: none;
+    color: black;
+}
+.contacts a:hover {
+    background-color: blue;
+    transition: ease-in-out background-color 0.8s;
+}

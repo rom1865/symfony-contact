@@ -1,11 +1,16 @@
 <ul>
     {% for contact in contacts %}
-        <li class="contacts"><a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="lastname">{{ contact.lastname }}</span>, <span class="firstname">{{ contact.firstname }}</span></a>
+        <li class="contacts"><a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="lastname">{{ contact.lastname }}</span>, <span class="firstname">{{ contact.firstname }}</span>
+            </a>
                 {% if show_category??true %}
                         {% if contact.category is null %}
                                 <span class="badge rounded-pill text-bg-warning">Pas de catégorie</span>
+                                <a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="material-symbols-outlined">edit</span></a>
+                                <a href="{{ path('app_contact_delete', {id: contact.id}) }}"><span class="material-symbols-outlined">delete</span></a>
                         {% else %}
                                 <a href="{{ path('app_category_show', {id : contact.category.id}) }}"><span class="badge rounded-pill text-bg-info">{{ contact.category.name }}</span></a>
+                                <a href="{{ path('app_contact_show', {id : contact.id}) }}"><span class="material-symbols-outlined">edit</span></a>
+                                <a href="{{ path('app_contact_delete', {id: contact.id}) }}"><span class="material-symbols-outlined">delete</span></a>
                         {% endif %}
                 {% endif %}
         </li>
