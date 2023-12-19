@@ -40,3 +40,14 @@ fix le code php de la page avec la commande suivante :
 - **db** : 
   
 "générer de façon fiable une nouvelle base de données contenant les données factices."
+  
+- **Test d'utilisateur** : 
+  
+
+- Utilisateur admin de test : 
+>Email : root@example.com
+> password : test  
+
+- Utilisateur user de test :
+>Email : user@example.com
+> password : test
