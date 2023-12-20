@@ -3,7 +3,7 @@
 {% block title %}Liste de toute les categories !{% endblock %}
 
 {% block body %}
-    {% dump %}
+    <div class="ul-category">
     <ul>
         {% for categorieCount in categories %}
             <li class="categorie"><a href="{{ path('app_category_show', {id : categorieCount.category.id}) }}">{{ categorieCount.category.name }}</a>
@@ -11,4 +11,9 @@
             </li>
         {% endfor %}
     </ul>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="button-deco"><a class="btn btn-danger" href="{{ logout_url(key = null) }}" role="button">Deconnexion  {{ app.user.firstname ?? '' }}</a></div>
+    {% endif %}
+    </div>
 {% endblock %}

@@ -11,3 +11,14 @@ span.lastname {
     background-color: blue;
     transition: ease-in-out background-color 0.8s;
 }
+
+.ul-category {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.button-deco {
+    order: 2;
+    flex: 1 0 100%;
+}

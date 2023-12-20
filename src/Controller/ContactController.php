@@ -35,6 +35,8 @@ class ContactController extends AbstractController
     #[Route('/contact/create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $newContact = new Contact();
 
         $form = $this->createForm(ContactType::class, $newContact);
@@ -56,6 +58,8 @@ class ContactController extends AbstractController
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
         Contact $contact, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request); // recupere la requete du formullaire
@@ -75,6 +79,8 @@ class ContactController extends AbstractController
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
         Contact $contact, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createFormBuilder($contact)
             ->add('delete', SubmitType::class)
             ->add('cancel', SubmitType::class)
