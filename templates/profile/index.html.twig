@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de profile de {{ user.firstname }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    <h1>Page de profile de {{ user.firstname }}</h1>
+
+    <div class="profil_utilisateur">
+        <div class="profil_header">
+            <img class="profile_img"src="" alt="image_user">
+            <h2 class="profile_name">{{ user.firstname }}, {{  user.lastname }}</h2>
+            <p class="profile_bio"> {{ user.bio }}</p>
+        </div>
+
+    </div>
+
+    <h2>Uploader</h2>
+    {{ form_start(form) }}
+    {{ form_row(form.imageFile) }}
+    <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+
+{% endblock %}

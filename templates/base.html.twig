@@ -37,8 +37,13 @@
                             Utilisateur
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                            {% endif %}
                             <li><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li><a class="nav-link" href="{{ path('app_profile', {'id' :  app.user.id  })}}">Profil</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>
