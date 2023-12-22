@@ -4,11 +4,13 @@
 
 {% block body %}
     <div class="ul-category">
-    <ul>
+    <ul class="all_category">
         {% for categorieCount in categories %}
-            <li class="categorie"><a href="{{ path('app_category_show', {id : categorieCount.category.id}) }}">{{ categorieCount.category.name }}</a>
-                <span class="badge bg-secondary">Nombre de contact : {{ categorieCount.count }}</span>
-            </li>
+            {% if categorieCount.count != 0 %}
+                <li class="category"><a href="{{ path('app_category_show', {id : categorieCount.category.id}) }}">{{ categorieCount.category.name }}</a>
+                    <span class="badge bg-secondary">Nombre de contact : {{ categorieCount.count }}</span>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 
